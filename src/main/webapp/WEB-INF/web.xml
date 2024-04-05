@@ -3,10 +3,9 @@
 	xmlns="https://jakarta.ee/xml/ns/jakartaee"
 	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
 	id="WebApp_ID" version="6.0">
-	<display-name>MyFirstSpringMVC</display-name>
+	<display-name>MVCFilmSite</display-name>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-
+		<welcome-file>/</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>Film</servlet-name>
@@ -16,5 +15,4 @@
 		<servlet-name>Film</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
 </web-app>

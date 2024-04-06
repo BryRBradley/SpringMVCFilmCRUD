@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JSP</title>
+<title>Films</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -48,19 +48,30 @@
 	<main>
 
 		<h1>FILMS</h1>
-		
-	</main>
 
-	<div class="container fixed-bottom">
-		<div class="row">
-			<div class="col text-center">
-				<p>&copy; 2024 April - JSP</p>
-			</div>
-			<div class="col text-center">
-				<p>Sheldon | Bryan</p>
+		<div class="container mt-5">
+			<div class="row">
+
+				<c:forEach var="film" items="${films}">
+					<!-- Card -->
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">
+									<a
+										href="<c:url value='findFilm.do'><c:param name='id' value='${film.id}'/></c:url>">${film.id}: ${film.title}
+									</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- End Card -->
+				</c:forEach>
+
 			</div>
 		</div>
-	</div>
+
+	</main>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

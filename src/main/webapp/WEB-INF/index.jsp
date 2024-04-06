@@ -49,24 +49,27 @@
 
 		<h1>MVC Film Site</h1>
 
-		<form action="find.do">
-			<label for="id" class="form-label">Search by Id: </label> <input
-				type="text" name="id" placeholder="Id" /> <input type="submit"
-				value="Search By Id" />
-		</form>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Films</h1>
+                    <form action="findFilm.do">
+                        <label for="id" class="form-label">Film by Id: </label> <input type="number" name="id" min="1" step="1"
+                            pattern="" placeholder="" /> <input type="submit" value="Search By Id" />
+                    </form>
+                </div>
+
+                <div class="col">
+                    <h1>Actors</h1>
+                    <form action="findActor.do">
+                        <label for="id" class="form-label">Actor by Id: </label> <input type="number" name="id" min="1" step="1"
+                            placeholder="" /> <input type="submit" value="Search By Id" />
+                    </form>
+                </div>
+            </div>
+        </div>
 
 	</main>
-
-	<div class="container fixed-bottom">
-		<div class="row">
-			<div class="col text-center">
-				<p>&copy; 2024 April - JSP</p>
-			</div>
-			<div class="col text-center">
-				<p>Sheldon | Bryan</p>
-			</div>
-		</div>
-	</div>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

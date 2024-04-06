@@ -247,7 +247,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				if (keys.next()) {
 					int newActorId = keys.getInt(1);
 					actor1.setId(newActorId);
-					if (actor1.getFilms() != null && actor1.getFilms().length > 0) {
+					if (actor1.getFilms() != null && actor1.getFilms().size() > 0) {
 						sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
 						stmt = conn.prepareStatement(sql);
 						for (Film film : actor1.getFilms()) {
@@ -322,6 +322,98 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 		return film;
 
+	}
+
+	@Override
+	public List<Actor> findAllActors() {
+
+		String USER = "student";
+		String PASS = "student";
+
+		Actor actor = null;
+
+		List<Actor> actors = new ArrayList<>();
+
+		try {
+
+			Connection conn = DriverManager.getConnection(URL, USER, PASS);
+			String sql = "SELECT * FROM actor";
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+
+			ResultSet actorResult = stmt.executeQuery();
+
+			while (actorResult.next()) {
+
+				actor = new Actor();
+
+				actor.setId(actorResult.getInt("id"));
+				actor.setFirstName(actorResult.getString("first_name"));
+				actor.setLastName(actorResult.getString("last_name"));
+
+				actors.add(actor);
+
+			}
+
+			actorResult.close();
+			stmt.close();
+			conn.close();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return actors;
+	}
+
+	@Override
+	public List<Film> findAllFilms() {
+
+		String USER = "student";
+		String PASS = "student";
+
+		List<Film> films = new ArrayList<>();
+
+		try {
+
+			Connection conn = DriverManager.getConnection(URL, USER, PASS);
+			String sql = "SELECT film.*, language.name as language FROM film JOIN language ON film.language_id = language.id order by id asc";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				int filmId = rs.getInt("id");
+				String title = rs.getString("title");
+				String description = rs.getString("description");
+				short releaseYear = rs.getShort("release_year");
+				int languageId = rs.getInt("language_id");
+				int rentalDuration = rs.getInt("rental_duration");
+				double rate = rs.getDouble("rental_rate");
+				int length = rs.getInt("length");
+				double replacementCost = rs.getDouble("replacement_cost");
+				String rating = rs.getString("rating");
+				String specialFeatures = rs.getString("special_features");
+				String language = rs.getString("language");
+
+				Film film = new Film(filmId, title, description, releaseYear, languageId, rentalDuration, rate, length,
+						replacementCost, rating, specialFeatures, language);
+
+				films.add(film);
+			}
+
+			rs.close();
+			stmt.close();
+			conn.close();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return films;
 	}
 
 }

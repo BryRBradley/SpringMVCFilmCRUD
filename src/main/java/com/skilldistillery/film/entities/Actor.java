@@ -1,11 +1,23 @@
 package com.skilldistillery.film.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class Actor {
+public class Actor { // Sheldon
 	private int id;
 	private String firstName;
 	private String lastName;
+
+	List<Film> films = new ArrayList<>();
+
+	public List<Film> getFilms() {
+		return films;
+	}
+
+	public void setFilms(List<Film> films) {
+		this.films = films;
+	}
 
 	public int getId() {
 		return id;
@@ -54,11 +66,6 @@ public class Actor {
 	@Override
 	public String toString() {
 		return "Actor id: " + id + ", First Name: " + firstName + ", lastName: " + lastName;
-	}
-	//
-
-	public Film[] getFilms() {
-		return null;
 	}
 
 }

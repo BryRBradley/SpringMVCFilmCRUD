@@ -3,7 +3,7 @@ package com.skilldistillery.film.entities;
 import java.util.List;
 import java.util.Objects;
 
-public class Film {
+public class Film { // Bryan
 	private int id;
 	private String title;
 	private String description;
@@ -145,8 +145,8 @@ public class Film {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, actors, id, language, languageId, length, rating, releaseYear,
-				rentalDuration, rentalRate, replacmentCost, specialFeatures, title);
+		return Objects.hash(description, actors, id, language, languageId, length, rating, releaseYear, rentalDuration,
+				rentalRate, replacmentCost, specialFeatures, title);
 	}
 
 	@Override
@@ -158,9 +158,9 @@ public class Film {
 		if (getClass() != obj.getClass())
 			return false;
 		Film other = (Film) obj;
-		return Objects.equals(description, other.description) && Objects.equals(actors, other.actors)
-				&& id == other.id && Objects.equals(language, other.language) && languageId == other.languageId
-				&& length == other.length && Objects.equals(rating, other.rating) && releaseYear == other.releaseYear
+		return Objects.equals(description, other.description) && Objects.equals(actors, other.actors) && id == other.id
+				&& Objects.equals(language, other.language) && languageId == other.languageId && length == other.length
+				&& Objects.equals(rating, other.rating) && releaseYear == other.releaseYear
 				&& rentalDuration == other.rentalDuration
 				&& Double.doubleToLongBits(rentalRate) == Double.doubleToLongBits(other.rentalRate)
 				&& Double.doubleToLongBits(replacmentCost) == Double.doubleToLongBits(other.replacmentCost)

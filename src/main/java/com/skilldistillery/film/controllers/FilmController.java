@@ -23,16 +23,36 @@ public class FilmController {
 		return mv;
 	}
 
+	@GetMapping(path = { "about", "about.do" })
+	public String about() {
+		return "about";
+	}
+
+	@GetMapping(path = { "films", "films.do" })
+	public String films() {
+		return "films";
+	}
+
+	@GetMapping(path = { "actors", "actors.do" })
+	public String actors() {
+		return "actors";
+	}
+
 	@GetMapping(path = { "find.do" })
-	public String findFilmById(@RequestParam("id") int filmId, Model model) {
+	public String findFilmById(@RequestParam(name = "id", required = false, defaultValue = "0") int id, Model model) {
+
+		if (id < 1) {
+			return "film"; // possible film not found page
+		}
+
 		Film film = null;
-		film = dao.findFilmById(filmId);
+		film = dao.findFilmById(id);
+		model.addAttribute("film", film);
 
 		if (film == null) {
-			return "filmNotFound";
+			return "film"; // possible film not found page
 		} else {
-			model.addAttribute("film", film);
-			return "film";
+			return "film"; // show the film details page
 		}
 
 	}

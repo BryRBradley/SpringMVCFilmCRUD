@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,27 +50,23 @@
 		<h1>MVC Film Site</h1>
 
 		<form action="find.do">
-			<label for="id" class="form-label">Search for a film by Id: </label>
-			<input type="TEXT" name="id" placeholder="Search for a film by Id" />
-			<input type="SUBMIT" value="Search By Id" />
+			<label for="id" class="form-label">Search by Id: </label> <input
+				type="text" name="id" placeholder="Id" /> <input type="submit"
+				value="Search By Id" />
 		</form>
 
 	</main>
 
-	<footer class="mt-5">
-
-		<div class="container fixed-bottom">
-			<div class="row">
-				<div class="col text-center">
-					<p>&copy; 2024 JSP</p>
-				</div>
-				<div class="col text-center">
-					<p>Sheldon | Bryan</p>
-				</div>
+	<div class="container fixed-bottom">
+		<div class="row">
+			<div class="col text-center">
+				<p>&copy; 2024 April - JSP</p>
+			</div>
+			<div class="col text-center">
+				<p>Sheldon | Bryan</p>
 			</div>
 		</div>
-
-	</footer>
+	</div>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
@@ -77,8 +75,6 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
-
-
 
 </body>
 

@@ -47,12 +47,8 @@
 
 	<main>
 
-		<h1>MVC Film Site</h1>
-
-		${film.title}
-
-		<pre>${film}</pre>
-
+		<h1>FILMS</h1>
+		
 	</main>
 
 	<div class="container fixed-bottom">

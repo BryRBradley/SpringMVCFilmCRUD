@@ -47,11 +47,11 @@
 
 	<main>
 
-		<h1>MVC Film Site</h1>
+		<h1>ACTORS</h1>
 
-		${film.title}
-
-		<pre>${film}</pre>
+		<c:forEach var="i" items="1,4,5,6,7,8,9">
+		    <p>Item <c:out value="No. ${i}" /></p>
+		</c:forEach>
 
 	</main>
 

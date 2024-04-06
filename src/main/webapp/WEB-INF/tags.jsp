@@ -47,11 +47,13 @@
 
 	<main>
 
-		<h1>MVC Film Site</h1>
+		<h1>JSP / JSTL - TAG Examples</h1>
+		
+		<hr>
 
-		${film.title}
+		<c:set var="currentTime" value="<%= new java.util.Date() %>" />
+		<fmt:formatDate value="${currentTime}" pattern="yyyy-MM-dd HH:mm:ss" />
 
-		<pre>${film}</pre>
 
 	</main>
 

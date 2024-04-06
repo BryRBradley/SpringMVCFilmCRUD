@@ -47,11 +47,7 @@
 
 	<main>
 
-		<h1>MVC Film Site</h1>
-
-		${film.title}
-
-		<pre>${film}</pre>
+		<h1>ABOUT</h1>
 
 	</main>
 

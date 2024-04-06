@@ -34,4 +34,7 @@ public interface DatabaseAccessor {
 	// Sheldon
 	public Actor createActor(Actor actor);
 
+	// Sheldon
+	public boolean deleteActor(int actorId);
+
 }

@@ -230,27 +230,35 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	}
 
 	public Actor createActor(Actor actor) {
+
 		String USER = "student";
 		String PASS = "student";
-		Actor actor1 = null;
+
 		Connection conn = null;
+
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASS);
+
 			conn.setAutoCommit(false); // START TRANSACTION
+
 			String sql = "INSERT INTO actor (first_name, last_name) " + " VALUES (?,?)";
+
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, actor1.getFirstName());
-			stmt.setString(2, actor1.getLastName());
+
+			stmt.setString(1, actor.getFirstName());
+			stmt.setString(2, actor.getLastName());
+
 			int updateCount = stmt.executeUpdate();
+
 			if (updateCount == 1) {
 				ResultSet keys = stmt.getGeneratedKeys();
 				if (keys.next()) {
 					int newActorId = keys.getInt(1);
-					actor1.setId(newActorId);
-					if (actor1.getFilms() != null && actor1.getFilms().size() > 0) {
+					actor.setId(newActorId);
+					if (actor.getFilms() != null && actor.getFilms().size() > 0) {
 						sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
 						stmt = conn.prepareStatement(sql);
-						for (Film film : actor1.getFilms()) {
+						for (Film film : actor.getFilms()) {
 							stmt.setInt(1, film.getId());
 							stmt.setInt(2, newActorId);
 							updateCount = stmt.executeUpdate();
@@ -258,9 +266,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					}
 				}
 			} else {
-				actor1 = null;
+				actor = null;
 			}
+
 			conn.commit(); // COMMIT TRANSACTION
+
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			if (conn != null) {
@@ -270,9 +280,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					System.err.println("Error trying to rollback");
 				}
 			}
-			throw new RuntimeException("Error inserting actor " + actor1);
+			throw new RuntimeException("Error inserting actor " + actor);
 		}
-		return actor1;
+		return actor;
 	}
 
 	public Film createFilm(String newFilmTitle) {
@@ -414,6 +424,51 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 
 		return films;
+	}
+
+	@Override
+	public boolean deleteActor(int actorId) {
+
+		String USER = "student";
+		String PASS = "student";
+
+		boolean wasDeleted = false;
+
+		Connection conn = null;
+
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASS);
+
+			conn.setAutoCommit(false); // START TRANSACTION
+
+			String sql = "DELETE FROM actor WHERE id = ?";
+
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			stmt.setInt(1, actorId);
+
+			int updateCount = stmt.executeUpdate();
+
+			if (updateCount == 1) {
+				wasDeleted = true;
+			} else {
+				wasDeleted = false;
+			}
+
+			conn.commit(); // COMMIT TRANSACTION
+
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			throw new RuntimeException("Error deleting actor " + actorId);
+		}
+		return wasDeleted;
 	}
 
 }

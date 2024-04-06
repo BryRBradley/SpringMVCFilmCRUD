@@ -48,14 +48,88 @@
 	<main>
 
 		<h1>Actor</h1>
+		
+		${message}
 
-		${actor.firstName} ${actor.lastName}
+		<c:if test="${empty actor}">
+			<!-- 'actor' object is null or empty -->
+			<!-- Your code here -->
 
-		<pre>${actor}</pre>
+			<c:choose>
+				<c:when test="${add}">
+					<!-- Code to execute if yourVariable is true -->
+				</c:when>
+				<c:otherwise>
+					<!-- Code to execute if yourVariable is false -->
+					<p>Actor not found</p>
+				</c:otherwise>
+			</c:choose>
+
+			<div class="container mt-5">
+				<h2>Actor Add Form</h2>
+				<form action="addActor.do" method="POST">
+					<div class="form-group">
+						<label for="firstName">First Name:</label> <input type="text"
+							class="form-control" id="firstName" name="firstName"
+							value="<c:out value='${actor.firstName}' />" minlength="1"
+							maxlength="45" required>
+					</div>
+					<div class="form-group">
+						<label for="lastName">Last Name:</label> <input type="text"
+							class="form-control" id="lastName" name="lastName"
+							value="<c:out value='${actor.lastName}' />" minlength="1"
+							maxlength="45" required>
+					</div>
+					<button type="submit" class="btn btn-primary">Add</button>
+				</form>
+			</div>
+
+		</c:if>
+
+		<c:if test="${not empty actor}">
+			<!-- 'actor' object is not null or empty -->
+			<!-- Your code here -->
+			<p>ID: ${actor.id} ${actor.firstName} ${actor.lastName}</p>
+
+			<div class="container mt-5">
+				<h2>Actor Update Form</h2>
+				<form action="updateActor.do" method="POST">
+					<div class="form-group">
+						<label for="id">ID: <c:out value='${actor.id}' /></label> <input
+							type="hidden" class="form-control" id="id" name="id"
+							value="<c:out value='${actor.id}' />" disabled>
+					</div>
+					<div class="form-group">
+						<label for="firstName">First Name:</label> <input type="text"
+							class="form-control" id="firstName" name="firstName"
+							value="<c:out value='${actor.firstName}' />" minlength="1"
+							maxlength="45" required>
+					</div>
+					<div class="form-group">
+						<label for="lastName">Last Name:</label> <input type="text"
+							class="form-control" id="lastName" name="lastName"
+							value="<c:out value='${actor.lastName}' />" minlength="1"
+							maxlength="45" required>
+					</div>
+					<button type="submit" class="btn btn-primary">Update</button>
+				</form>
+			</div>
+
+			<div class="container mt-5">
+				<h2>Actor Delete Form ${actor.id}</h2>
+				<form action="deleteActor.do?id=<c:out value='${actor.id}' />" method="POST">
+					<div class="form-group">
+						<label for="id">ID: <c:out value='${actor.id}' /></label> <input
+							type="hidden" class="form-control" id="id" name="id"
+							value="<c:out value='${actor.id}' />" disabled>
+					</div>
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</form>
+			</div>
+
+		</c:if>
 
 	</main>
-
-
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

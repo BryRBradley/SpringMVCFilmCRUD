@@ -49,25 +49,34 @@
 
 		<h1>MVC Film Site</h1>
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h1>Films</h1>
-                    <form action="findFilm.do">
-                        <label for="id" class="form-label">Film by Id: </label> <input type="number" name="id" min="1" step="1"
-                            pattern="" placeholder="" /> <input type="submit" value="Search By Id" />
-                    </form>
-                </div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h1>Films</h1>
+					<form action="findFilm.do">
+						<label for="id" class="form-label">Film by Id: </label> <input
+							type="number" name="id" min="1" step="1" pattern=""
+							placeholder="" /> <input type="submit" value="Search By Id" />
+					</form>
+				</div>
 
-                <div class="col">
-                    <h1>Actors</h1>
-                    <form action="findActor.do">
-                        <label for="id" class="form-label">Actor by Id: </label> <input type="number" name="id" min="1" step="1"
-                            placeholder="" /> <input type="submit" value="Search By Id" />
-                    </form>
-                </div>
-            </div>
-        </div>
+				<div class="col">
+				
+					<h1>Actors</h1>
+					
+					<form action="findActor.do">
+						<label for="id" class="form-label">Actor by Id: </label> <input
+							type="number" name="id" min="1" step="1" placeholder="" /> <input
+							type="submit" value="Search By Id" />
+					</form>
+					
+					<form action="addActor.do">
+						<input type="submit" class="btn btn-success" value="Add Actor" />
+					</form>
+					
+				</div>
+			</div>
+		</div>
 
 	</main>
 

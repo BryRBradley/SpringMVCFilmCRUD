@@ -26,6 +26,12 @@ public class Actor { // Sheldon
 	public Actor() {
 	}
 
+	public Actor(String firstName, String lastName) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}

@@ -48,7 +48,7 @@
 	<main>
 
 		<h1>Actor</h1>
-		
+
 		${message}
 
 		<c:if test="${empty actor}">
@@ -117,7 +117,8 @@
 
 			<div class="container mt-5">
 				<h2>Actor Delete Form ${actor.id}</h2>
-				<form action="deleteActor.do?id=<c:out value='${actor.id}' />" method="POST">
+				<form action="deleteActor.do?id=<c:out value='${actor.id}' />"
+					method="POST">
 					<div class="form-group">
 						<label for="id">ID: <c:out value='${actor.id}' /></label> <input
 							type="hidden" class="form-control" id="id" name="id"

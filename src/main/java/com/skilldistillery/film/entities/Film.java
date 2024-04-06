@@ -12,7 +12,7 @@ public class Film { // Bryan
 	private int rentalDuration;
 	private double rentalRate;
 	private Integer length; // nullable
-	private double replacmentCost;
+	private double replacementCost;
 	private String rating;
 	private String specialFeatures;
 	private List<Actor> actors;
@@ -33,7 +33,7 @@ public class Film { // Bryan
 		this.rentalDuration = rentalDuration;
 		this.rating = rating;
 		this.length = length;
-		this.replacmentCost = replacementCost;
+		this.replacementCost = replacementCost;
 		this.rentalRate = rate;
 		this.specialFeatures = specialFeatures;
 		this.language = language;
@@ -104,12 +104,12 @@ public class Film { // Bryan
 		this.length = length;
 	}
 
-	public double getReplacmentCost() {
-		return replacmentCost;
+	public double getReplacementCost() {
+		return replacementCost;
 	}
 
-	public void setReplacmentCost(double replacmentCost) {
-		this.replacmentCost = replacmentCost;
+	public void setReplacementCost(double replacmentCost) {
+		this.replacementCost = replacmentCost;
 	}
 
 	public String getRating() {
@@ -147,7 +147,7 @@ public class Film { // Bryan
 	@Override
 	public int hashCode() {
 		return Objects.hash(description, actors, id, language, languageId, length, rating, releaseYear, rentalDuration,
-				rentalRate, replacmentCost, specialFeatures, title);
+				rentalRate, replacementCost, specialFeatures, title);
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class Film { // Bryan
 				&& Objects.equals(rating, other.rating) && releaseYear == other.releaseYear
 				&& rentalDuration == other.rentalDuration
 				&& Double.doubleToLongBits(rentalRate) == Double.doubleToLongBits(other.rentalRate)
-				&& Double.doubleToLongBits(replacmentCost) == Double.doubleToLongBits(other.replacmentCost)
+				&& Double.doubleToLongBits(replacementCost) == Double.doubleToLongBits(other.replacementCost)
 				&& Objects.equals(specialFeatures, other.specialFeatures) && Objects.equals(title, other.title);
 	}
 
@@ -172,7 +172,7 @@ public class Film { // Bryan
 	public String toString() {
 		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
 				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
-				+ ", length=" + length + ", replacmentCost=" + replacmentCost + ", rating=" + rating
+				+ ", length=" + length + ", replacmentCost=" + replacementCost + ", rating=" + rating
 				+ ", specialFeatures=" + specialFeatures + ", actors=" + actors + ", language=" + language + "]";
 	}
 

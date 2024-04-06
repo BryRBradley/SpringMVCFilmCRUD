@@ -29,7 +29,7 @@ public interface DatabaseAccessor {
 	public List<Film> findAllFilms();
 
 	// Bryan
-	public Film createFilm(String newFilmTitle);
+	// public Film createFilm(String newFilmTitle);
 
 	public Film createFilm(Film film);
 
@@ -38,5 +38,9 @@ public interface DatabaseAccessor {
 
 	// Sheldon
 	public boolean deleteActor(int actorId);
+
+	public boolean deleteFilm(int id);
+
+	public Film updateFilmById(Film film);
 
 }

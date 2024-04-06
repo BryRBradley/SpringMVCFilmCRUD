@@ -50,32 +50,66 @@
 		<h1>Film</h1>
 
 		<c:if test="${empty film}">
-		<p> No Film in the database</p>	<!-- Code to execute if variable is null or empty -->
+			<p>No Film in the database</p>
+			<!-- Code to execute if variable is null or empty -->
 		</c:if>
-		
 
+		<c:if test="${! empty error}">
+
+			<p>${error}</p>
+
+		</c:if>
+
+		<c:if test="${! empty film}">
+		
+		
 		${film.title} ${film.description} ${film.releaseYear} ${film.language}
 		${film.rentalDuration} ${film.rentalRate} ${film.length}
-		${film.rating} ${film.specialFeatures} ${film.replacmentCost}
+		${film.rating} ${film.specialFeatures} ${film.replacementCost}
+		
+		<h5 class="card-title">
+				<a
+					href="<c:url value='updateFilm.do'><c:param name='id' value='${film.id}'/></c:url>">${film.id}:
+					edit ${film.title} </a>
+			</h5>
 
 
-		<c:if test="${empty film.actors}">
-		<p> No data for Actors in film </p>	<!-- Code to execute if variable is null or empty -->
+
+
+			<c:if test="${empty film.actors}">
+				<p>No data for Actors in film</p>
+				<!-- Code to execute if variable is null or empty -->
+			</c:if>
+			<c:if test="${not empty film.actors}">
+				<!-- Code to execute if variable is not null and not empty -->
+				<p>Cast of Actors</p>
+
+				<c:forEach var="actor" items="${film.actors}">
+					<!-- Card -->
+					<h5 class="card-title">
+						<a
+							href="<c:url value='findActor.do'><c:param name='id' value='${actor.id}'/></c:url>">${actor.id}:
+							${actor.firstName} ${actor.lastName} </a>
+					</h5>
+					<!-- End Card -->
+				</c:forEach>
+			</c:if>
+			<div class="container mt-5">
+				<h2>Film Delete Form ${film.id}</h2>
+				<form action="deleteFilm.do?id=<c:out value='${film.id}' />"
+					method="POST">
+					<div class="form-group">
+						<label for="id">ID: <c:out value='${film.id}' /></label> <input
+							type="hidden" class="form-control" id="id" name="id"
+							value="<c:out value='${film.id}' />" disabled>
+					</div>
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</form>
+			</div>
 		</c:if>
-		<c:if test="${not empty film.actors}">
-			<!-- Code to execute if variable is not null and not empty -->
-			<p>Cast of Actors</p>
 
-			<c:forEach var="actor" items="${film.actors}">
-				<!-- Card -->
-							<h5 class="card-title">
-								<a
-									href="<c:url value='findActor.do'><c:param name='id' value='${actor.id}'/></c:url>">${actor.id}:
-									${actor.firstName} ${actor.lastName} </a>
-							</h5>
-				<!-- End Card -->
-			</c:forEach>
-		</c:if>
+
+
 
 	</main>
 

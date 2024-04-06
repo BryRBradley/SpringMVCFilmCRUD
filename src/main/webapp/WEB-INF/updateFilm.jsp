@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Film</title>
+<title>updateFilm</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -49,39 +49,49 @@
 
 		<h1>Film</h1>
 
-		<c:if test="${empty film}">
+		<c:if test="${! empty film}">
 
 			<div class="container mt-5">
-				<h2>Film Add Form</h2>
-				<form action="addFilm.do" method="">
+				<h2>Film Update Form</h2>
+				<form action="updateFilm.do" method="POST">
 					<div class="form-group">
 						<label for="title">Title:</label> <input type="text"
 							class="form-control" id="title" name="title"
-							value="<c:out value='' />" minlength="1" maxlength="255" required>
+							value="<c:out value='${film.title}' />" minlength="1"
+							maxlength="255" required>
 					</div>
 					<div class="form-group">
 						<label for="description">Description:</label> <input type="text"
 							class="form-control" id="description" name="description"
-							value="<c:out value='' />" minlength="1" maxlength="65535">
+							value="<c:out value='${film.description}' />" minlength="1"
+							maxlength="65535">
 					</div>
 
 					<div class="form-group">
 						<label for="releaseYear">Release year:</label> <input
 							type="number" class="form-control" id="releaseYear"
-							name="releaseYear" value="<c:out value='' />" minlength="0"
+							name="releaseYear"
+							value="<c:out value='${film.releaseYear}' />" minlength="0"
 							maxlength="4" min="1901" max="2155">
 					</div>
 
 					<div class="form-group">
 						<label for="languageId">Language:</label> <select
 							class="form-control" id="languageId" name="languageId" required>
-							<option selected value="">Select an option</option>
-							<option value="1">English</option>
-							<option value="2">Italian</option>
-							<option value="3">Japanese</option>
-							<option value="4">Mandarin</option>
-							<option value="5">French</option>
-							<option value="6">German</option>
+							<option value="">Select an option</option>
+
+							<option <c:if test="${film.languageId ==1 }"> selected </c:if>
+								value="1">English</option>
+							<option <c:if test="${film.languageId ==2 }"> selected </c:if>
+								value="2">Italian</option>
+							<option <c:if test="${film.languageId ==3 }"> selected </c:if>
+								value="3">Japanese</option>
+							<option <c:if test="${film.languageId ==4 }"> selected </c:if>
+								value="4">Mandarin</option>
+							<option <c:if test="${film.languageId ==5 }"> selected </c:if>
+								value="5">French</option>
+							<option <c:if test="${film.languageId ==6 }"> selected </c:if>
+								value="6">German</option>
 						</select>
 					</div>
 
@@ -89,26 +99,28 @@
 					<div class="form-group">
 						<label for="title">Rental duration:</label> <input type="number"
 							class="form-control" id="rentalDuration" name="rentalDuration"
-							value="<c:out value='0' />" minlength="1" maxlength="3" min="0"
-							max="255" required>
+							value="<c:out value='0' />" minlength="1" maxlength="3"
+							min="0" max="255" required>
 					</div>
 					<div class="form-group">
 						<label for="rentalRate">Rental rate:</label> <input type="text"
 							class="form-control" id="rentalRate" name="rentalRate"
-							placeholder=“##.##” value="<c:out value='0.00' />" minlength="1"
-							maxlength="5" required>
+							placeholder=“##.##” value="Update<c:out value='0.00' />"
+							minlength="1" maxlength="5" required>
 					</div>
 
 					<div class="form-group">
 						<label for="length">Length:</label> <input type="number"
 							class="form-control" id="length" name="length"
-							value="<c:out value='' />" minlength="0" maxlength="5">
+							value="<c:out value='${film.length}' />" minlength="0"
+							maxlength="5">
 					</div>
 
 					<div class="form-group">
 						<label for="replacementCost">Replacement cost:</label> <input
 							type="text" class="form-control" id="replacementCost"
-							name="replacementCost" value="<c:out value='0.00' />"
+							name="replacementCost"
+							value="<c:out value='${film.replacementCost}'/>"
 							minlength="1" maxlength="5" required>
 					</div>
 
@@ -127,15 +139,16 @@
 					<div class="form-group">
 						<label for="">Special features:</label> <input type="text"
 							class="form-control" id="specialFeatures" name="specialFeatures"
-							value="<c:out value='' />" minlength="0" maxlength="45">
+							value="<c:out value='${film.specialFeatures}' />"
+							minlength="0" maxlength="45">
 					</div>
 
 
-					<button type="submit" class="btn btn-primary">Add</button>
+					<button type="submit" class="btn btn-primary">Update</button>
 				</form>
 			</div>
 
-			<!-- Code to execute if variable is null or empty -->
+
 		</c:if>
 
 	</main>

@@ -59,8 +59,8 @@
 							<div class="card-body">
 								<h5 class="card-title">
 									<a
-										href="<c:url value='findActor.do'><c:param name='id' value='${actor.id}'/></c:url>">${actor.id}: ${actor.firstName} ${actor.lastName}
-									</a>
+										href="<c:url value='findActor.do'><c:param name='id' value='${actor.id}'/></c:url>">${actor.id}:
+										${actor.firstName} ${actor.lastName} </a>
 								</h5>
 							</div>
 						</div>

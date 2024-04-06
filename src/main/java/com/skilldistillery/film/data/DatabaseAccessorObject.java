@@ -43,11 +43,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				int filmId = rs.getInt("id");
 				String title = rs.getString("title");
 				String description = rs.getString("description");
-				short releaseYear = rs.getShort("release_year");
+				Integer releaseYear = rs.getInt("release_year");
 				int languageId = rs.getInt("language_id");
 				int rentalDuration = rs.getInt("rental_duration");
 				double rate = rs.getDouble("rental_rate");
-				int length = rs.getInt("length");
+				Integer length = rs.getInt("length");
 				double replacementCost = rs.getDouble("replacement_cost");
 				String rating = rs.getString("rating");
 				String specialFeatures = rs.getString("special_features");
@@ -86,11 +86,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				int filmId = rs.getInt("id");
 				String title = rs.getString("title");
 				String description = rs.getString("description");
-				short releaseYear = rs.getShort("release_year");
+				Integer releaseYear = rs.getInt("release_year");
 				int languageId = rs.getInt("language_id");
 				int rentalDuration = rs.getInt("rental_duration");
 				double rate = rs.getDouble("rental_rate");
-				int length = rs.getInt("length");
+				Integer length = rs.getInt("length");
 				double replacementCost = rs.getDouble("replacement_cost");
 				String rating = rs.getString("rating");
 				String specialFeatures = rs.getString("special_features");
@@ -123,24 +123,20 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			ResultSet filmResult = stmt.executeQuery();
 			if (filmResult.next()) {
 				film = new Film();
-				// int id = filmResult.getInt("Id")
 				film.setId(filmResult.getInt("Id"));
 				film.setTitle(filmResult.getString("title"));
 				film.setDescription(filmResult.getString("description"));
-				film.setReleaseYear(filmResult.getShort("release_year"));
-				// film.setLanguageId(filmResult.getInt("language_id"));
-				// film.setRentalDuration(filmResult.getInt("rental_duration"));
-				// film.setRentalRate(filmResult.getDouble("rental_rate"));
-				// film.setLength(filmResult.getInt("length"));
-				// film.setReplacmentCost(filmResult.getDouble("replacement_cost"));
+				film.setReleaseYear(filmResult.getInt("release_year"));
+				film.setLanguageId(filmResult.getInt("language_id"));
+				film.setRentalDuration(filmResult.getInt("rental_duration"));
+				film.setRentalRate(filmResult.getDouble("rental_rate"));
+				film.setLength(filmResult.getInt("length"));
+				film.setReplacmentCost(filmResult.getDouble("replacement_cost"));
 				film.setRating(filmResult.getString("rating"));
-				// film.setSpecialFeatures(filmResult.getString("special_features"));
+				film.setSpecialFeatures(filmResult.getString("special_features"));
 				film.setLanguage(filmResult.getString("name"));
-				// Call findActorsByFilmId();passing the provided film ID
-				// set the return list of actors into the film object.
-				// List<Actor> actorList = findActorsByFilmId(filmId);
-				// film.setFilmCast(actorList);
-				// film = new film(.....);
+				List<Actor> actorList = findActorsByFilmId(filmId);
+				film.setActors(actorList);
 			}
 			filmResult.close();
 			stmt.close();
@@ -285,6 +281,72 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return actor;
 	}
 
+	@Override
+	public Film createFilm(Film film) {
+		String USER = "student";
+		String PASS = "student";
+
+		Connection conn = null;
+
+		try {
+
+			conn = DriverManager.getConnection(URL, USER, PASS);
+
+			conn.setAutoCommit(false); // START TRANSACTION
+
+			String sql = "INSERT INTO film (title, description,release_year,language_id,rental_duration,rental_rate,length,replacement_cost,rating,special_features) "
+					+ " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getReleaseYear());
+			stmt.setInt(4, film.getLanguageId());
+			stmt.setInt(5, film.getRentalDuration());
+			stmt.setDouble(6, film.getRentalRate());
+			stmt.setInt(7, film.getLength());
+			stmt.setDouble(8, film.getReplacmentCost());
+			stmt.setString(9, film.getRating());
+			stmt.setString(10, film.getSpecialFeatures());
+
+			int updateCount = stmt.executeUpdate();
+
+			if (updateCount == 1) {
+
+				ResultSet keys = stmt.getGeneratedKeys();
+
+				if (keys.next()) { // should and will be only one
+					int newFilmId = keys.getInt(1);
+					film.setId(newFilmId);
+				}
+
+			} else {
+
+				film = null;
+
+			}
+
+			conn.commit(); // COMMIT TRANSACTION
+
+		} catch (SQLException sqle) {
+
+			film = null;
+
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			throw new RuntimeException("Error inserting film " + film);
+		}
+
+		return film;
+	}
+
 	public Film createFilm(String newFilmTitle) {
 		String USER = "student";
 		String PASS = "student";
@@ -398,11 +460,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				int filmId = rs.getInt("id");
 				String title = rs.getString("title");
 				String description = rs.getString("description");
-				short releaseYear = rs.getShort("release_year");
+				Integer releaseYear = rs.getInt("release_year");
 				int languageId = rs.getInt("language_id");
 				int rentalDuration = rs.getInt("rental_duration");
 				double rate = rs.getDouble("rental_rate");
-				int length = rs.getInt("length");
+				Integer length = rs.getInt("length");
 				double replacementCost = rs.getDouble("replacement_cost");
 				String rating = rs.getString("rating");
 				String specialFeatures = rs.getString("special_features");

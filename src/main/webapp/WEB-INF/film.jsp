@@ -49,9 +49,33 @@
 
 		<h1>Film</h1>
 
-		${film.title}
+		<c:if test="${empty film}">
+		<p> No Film in the database</p>	<!-- Code to execute if variable is null or empty -->
+		</c:if>
+		
 
-		<pre>${film}</pre>
+		${film.title} ${film.description} ${film.releaseYear} ${film.language}
+		${film.rentalDuration} ${film.rentalRate} ${film.length}
+		${film.rating} ${film.specialFeatures} ${film.replacmentCost}
+
+
+		<c:if test="${empty film.actors}">
+		<p> No data for Actors in film </p>	<!-- Code to execute if variable is null or empty -->
+		</c:if>
+		<c:if test="${not empty film.actors}">
+			<!-- Code to execute if variable is not null and not empty -->
+			<p>Cast of Actors</p>
+
+			<c:forEach var="actor" items="${film.actors}">
+				<!-- Card -->
+							<h5 class="card-title">
+								<a
+									href="<c:url value='findActor.do'><c:param name='id' value='${actor.id}'/></c:url>">${actor.id}:
+									${actor.firstName} ${actor.lastName} </a>
+							</h5>
+				<!-- End Card -->
+			</c:forEach>
+		</c:if>
 
 	</main>
 

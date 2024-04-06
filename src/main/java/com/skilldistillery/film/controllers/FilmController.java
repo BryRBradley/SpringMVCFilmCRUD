@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.film.data.DatabaseAccessor;
@@ -25,7 +26,7 @@ public class FilmController { // Bryan
 		Film film = null;
 		film = dao.findFilmById(id);
 		model.addAttribute("film", film);
-
+		System.out.println(film);
 		if (film == null) {
 			return "film"; // possible film not found page
 		} else {
@@ -34,4 +35,15 @@ public class FilmController { // Bryan
 
 	}
 
+	@GetMapping(path = { "addFilm.do" })
+	public String addFilmGet(Model model) {
+		return "addFilm"; // show the actor details page
+	}
+
+	@PostMapping(path = { "addFilm.do" })
+	public String addFilmPost(Film film, Model model) {
+		System.out.println(film);
+		dao.createFilm(film);
+		return "film"; // show the actor details page
+	}
 }

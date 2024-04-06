@@ -58,6 +58,11 @@
 							type="number" name="id" min="1" step="1" pattern=""
 							placeholder="" /> <input type="submit" value="Search By Id" />
 					</form>
+					
+					<form action="addFilm.do" method="GET">
+						<input type="submit" class="btn btn-success" value="Add Film" />
+					</form>
+					
 				</div>
 
 				<div class="col">

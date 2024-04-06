@@ -31,6 +31,8 @@ public interface DatabaseAccessor {
 	// Bryan
 	public Film createFilm(String newFilmTitle);
 
+	public Film createFilm(Film film);
+
 	// Sheldon
 	public Actor createActor(Actor actor);
 

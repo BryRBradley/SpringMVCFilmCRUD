@@ -643,21 +643,59 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 			conn.setAutoCommit(false); // START TRANSACTION
 
-			String sql = "UPDATE film SET (title, description,release_year,language_id,rental_duration,rental_rate,length,replacement_cost,rating,special_features) "
-					+ " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+			String sql = "UPDATE film SET title = ?, description = ?, release_year = ?, language_id = ?, rental_duration = ?,rental_rate = ?, length = ?, replacement_cost = ?, rating = ?, special_features = ? WHERE id = ?";
+			;
+
+			// "UPDATE film SET (title,
+			// description,release_year,language_id,rental_duration,rental_rate,length,replacement_cost,rating,special_features)
+			// "
+			// + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
-			stmt.setInt(3, film.getReleaseYear());
+
+			// stmt.setInt(3, film.getReleaseYear() != null ? film.getReleaseYear() : null);
+
+			if (film.getReleaseYear() != null) {
+				// If getReleaseYear is not null, set the integer value
+				stmt.setInt(3, film.getReleaseYear());
+			} else {
+				// If getReleaseYear is null, set it as NULL in the database
+				stmt.setNull(3, java.sql.Types.INTEGER);
+			}
+			System.out.println(film.getLanguageId());
+
 			stmt.setInt(4, film.getLanguageId());
 			stmt.setInt(5, film.getRentalDuration());
 			stmt.setDouble(6, film.getRentalRate());
-			stmt.setInt(7, film.getLength());
+
+			// stmt.setInt(7, film.getLength());
+
+			if (film.getLength() != null) {
+				// If getLength is not null, set the integer value
+				stmt.setInt(7, film.getLength());
+			} else {
+				// If getLength is null, set it as NULL in the database
+				stmt.setNull(7, java.sql.Types.INTEGER);
+			}
+
 			stmt.setDouble(8, film.getReplacementCost());
-			stmt.setString(9, film.getRating());
+
+			// stmt.setString(9, film.getRating());
+
+			if (film.getRating() != null && !film.getRating().equals("")) {
+				// If getRating is not null, set the string value
+				stmt.setString(9, film.getRating());
+			} else {
+				// If getRating is null, set it as NULL in the database
+				stmt.setNull(9, java.sql.Types.VARCHAR);
+			}
+
 			stmt.setString(10, film.getSpecialFeatures());
+
+			stmt.setInt(11, film.getId());
 
 			int updateCount = stmt.executeUpdate();
 
@@ -680,7 +718,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
-
+		System.out.println("Updated film" + film);
 		return film;
 
 	}

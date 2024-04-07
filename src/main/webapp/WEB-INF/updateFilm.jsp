@@ -54,6 +54,11 @@
 			<div class="container mt-5">
 				<h2>Film Update Form</h2>
 				<form action="updateFilm.do" method="POST">
+				<div class="form-group">
+						<label for="id">ID: ${film.id} </label> <input type="hidden"
+							class="form-control" id="id" name="id"
+							value="<c:out value='${film.id}' />" required>
+					</div>
 					<div class="form-group">
 						<label for="title">Title:</label> <input type="text"
 							class="form-control" id="title" name="title"
@@ -99,13 +104,13 @@
 					<div class="form-group">
 						<label for="title">Rental duration:</label> <input type="number"
 							class="form-control" id="rentalDuration" name="rentalDuration"
-							value="<c:out value='0' />" minlength="1" maxlength="3"
+							value="<c:out value='${film.rentalDuration}' />" minlength="1" maxlength="3"
 							min="0" max="255" required>
 					</div>
 					<div class="form-group">
 						<label for="rentalRate">Rental rate:</label> <input type="text"
 							class="form-control" id="rentalRate" name="rentalRate"
-							placeholder=“##.##” value="Update<c:out value='0.00' />"
+							placeholder=“##.##” value="<c:out value= '${film.rentalRate}' />"
 							minlength="1" maxlength="5" required>
 					</div>
 
@@ -128,11 +133,11 @@
 						<label for="rating">Rating:</label> <select class="form-control"
 							id="rating" name="rating">
 							<option value="">Select an option</option>
-							<option value="G">G</option>
-							<option value="PG">PG</option>
-							<option value="PG13">PG13</option>
-							<option value="R">R</option>
-							<option value="NC17">NC17</option>
+							<option value="G" ${film.rating == 'G' ? 'selected' : ''}>G</option>
+							<option value="PG" ${film.rating == 'PG' ? 'selected' : ''}>PG</option>
+							<option value="PG13" ${film.rating == 'PG13' ? 'selected' : ''}>PG13</option>
+							<option value="R" ${film.rating == 'R' ? 'selected' : ''}>R</option>
+							<option value="NC17" ${film.rating == 'NC17' ? 'selected' : ''}>NC17</option>
 						</select>
 					</div>
 

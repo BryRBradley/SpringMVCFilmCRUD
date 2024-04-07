@@ -101,11 +101,10 @@
 							<p>
 								<b>Special Features:</b> ${film.specialFeatures}
 							</p>
-							
-														<div class="row">
+
+							<div class="row">
 								<div class="col">
-									<form action="updateFilm.do?id=<c:out value='${film.id}' />"
-										method="POST">
+									<form action="updateFilm.do" method="GET">
 										<div class="form-group">
 											<input type="hidden" class="form-control" id="id" name="id"
 												value="<c:out value='${film.id}' />">
@@ -116,8 +115,7 @@
 								</div>
 
 								<div class="col">
-									<form action="deleteFilm.do"
-										method="POST">
+									<form action="deleteFilm.do" method="POST">
 										<div class="form-group">
 											<input type="hidden" class="form-control" id="id" name="id"
 												value="<c:out value='${film.id}' />">

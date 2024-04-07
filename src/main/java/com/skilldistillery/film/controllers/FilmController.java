@@ -138,8 +138,42 @@ public class FilmController { // Bryan
 	}
 
 	@PostMapping(path = { "updateFilm.do" })
+	public String updateFilmById(Film film, Model model, RedirectAttributes redirectAttributes) {
+
+		System.out.println("Id: " + film.getId());
+
+		if (film.getId() < 1) {
+			redirectAttributes.addFlashAttribute("message", "Id must be valid.");
+			return "redirect:error.do";
+		}
+
+		try {
+			film = dao.updateFilmById(film);
+			film = dao.findFilmById(film.getId());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			redirectAttributes.addFlashAttribute("error", e.getMessage());
+			redirectAttributes.addFlashAttribute("message", "Failed to update film");
+			film = null;
+			return "redirect:error.do";
+		}
+
+		if (film == null) {
+			model.addAttribute("error", "Error updating film. ");
+			film = null;
+			return "redirect:error.do";
+		} else {
+			model.addAttribute("film", film);
+			return "film"; // show the film details page
+		}
+
+	}
+
+	@GetMapping(path = { "updateFilm.do" })
 	public String updateFilmById(@RequestParam(name = "id", required = false, defaultValue = "0") int id, Model model,
 			RedirectAttributes redirectAttributes) {
+
+		System.out.println("Id: " + id);
 
 		if (id < 1) {
 			redirectAttributes.addFlashAttribute("message", "Id must be valid.");

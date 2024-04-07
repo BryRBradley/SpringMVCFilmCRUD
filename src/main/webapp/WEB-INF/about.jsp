@@ -65,9 +65,9 @@
 				<div class="col">
 					<h1>Bryan's Comments</h1>
 					<ul>
-						<li>---</li>
-						<li>---</li>
-						<li>---</li>
+						<li> Added Delete/Edit buttons to all film views. </li>
+						<li> Extensive testing on user interfaces and error catch</li>
+						<li> Maintained deletion protection of pre-set database values.</li>
 					</ul>
 				</div>
 			</div>

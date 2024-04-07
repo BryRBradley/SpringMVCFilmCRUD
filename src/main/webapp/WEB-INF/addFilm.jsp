@@ -130,7 +130,7 @@
 
 							<input type="text" class="form-control" id="rentalRate"
 								name="rentalRate" placeholder=“##.##”
-								value="<c:out value='0.00' />" minlength="1" maxlength="5"
+								value="<c:out value='1.99' />" minlength="1" maxlength="5"
 								required>
 						</div>
 					</div>
@@ -140,8 +140,8 @@
 							<label for="length">Length:</label>
 						</div>
 						<div class="col">
-							<input type="text" class="form-control" id="length" pattern="[0-9]{5}"
-								name="length" value="<c:out value='' />" minlength="0"
+							<input type="number" class="form-control" id="length" 
+								name="length" value="<c:out value='120' />" minlength="0"
 								maxlength="5">
 						</div>
 					</div>
@@ -152,7 +152,7 @@
 						</div>
 						<div class="col">
 							<input type="text" class="form-control" id="replacementCost"
-								name="replacementCost" value="<c:out value='0.00' />"
+								name="replacementCost" value="<c:out value='19.99' />"
 								minlength="1" maxlength="5" required>
 						</div>
 					</div>

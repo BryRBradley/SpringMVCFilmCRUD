@@ -85,6 +85,15 @@
 										<button type="submit" class="btn btn-danger">Delete
 											this Film</button>
 									</form>
+									<form action="updateFilm.do" method="GET">
+										<div class="form-group">
+											<input type="hidden" class="form-control" id="id" name="id"
+												value="<c:out value='${film.id}' />">
+										</div>
+										<button type="submit" class="btn btn-warning">Edit
+											Film</button>
+									</form>
+									
 								</div>
 							</div>
 						</div>

@@ -66,5 +66,5 @@ https://github.com/BryRBradley/SpringMVCFilmCRUD
 
 [About The Developers - Sheldon](https://www.linkedin.com/in/sheldonpasciak)
 
-[About The Developers - Bryan](https://www.linkedin.com/in/sheldonpasciak)
+[About The Developers - Bryan](https://www.linkedin.com/in/bryan-bradley-a8740190/)
 

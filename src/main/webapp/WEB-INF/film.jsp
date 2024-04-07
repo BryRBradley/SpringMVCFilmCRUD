@@ -47,8 +47,8 @@
 
 	<main>
 
-		<div class="container">
-
+		<div class="container mt-5">
+		
 			<h1>Film</h1>
 
 			<c:if test="${empty film}">
@@ -115,7 +115,7 @@
 								</div>
 
 								<div class="col">
-									<form action="deleteFilm.do" method="POST">
+									<form action="deleteFilm.do" method="POST" onsubmit="return window.confirm('Are you sure you want to delete this entity?');">
 										<div class="form-group">
 											<input type="hidden" class="form-control" id="id" name="id"
 												value="<c:out value='${film.id}' />">

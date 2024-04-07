@@ -71,7 +71,7 @@
 			<c:choose>
 				<c:when test="${add}">
 					<div class="container mt-5">
-						<h2>Actor Add Form - Partially Implemented Stretch Goal</h2>
+						<h2>Add Actor</h2>
 						<form action="addActor.do" method="POST">
 							<div class="form-group">
 								<label for="firstName">First Name:</label> <input type="text"
@@ -110,36 +110,6 @@
 						<p>Actor ID: ${actor.id}</p>
 						<p>First Name: ${actor.firstName}</p>
 						<p>Last Name: ${actor.lastName}</p>
-					</div>
-
-					<div class="col">
-						<div class="container mt-5">
-							<h2>Actor Update Form - Partially Implemented Stretch Goal</h2>
-							<form action="updateActor.do" method="POST">
-								<div class="form-group">
-									<label for="id">ID: <c:out value='${actor.id}' /></label> <input
-										type="hidden" class="form-control" id="id" name="id"
-										value="<c:out value='${actor.id}' />" disabled>
-								</div>
-								<div class="form-group">
-									<label for="firstName">First Name:</label> <input type="text"
-										class="form-control" id="firstName" name="firstName"
-										value="<c:out value='${actor.firstName}' />" minlength="1"
-										maxlength="45" required>
-								</div>
-								<div class="form-group">
-									<label for="lastName">Last Name:</label> <input type="text"
-										class="form-control" id="lastName" name="lastName"
-										value="<c:out value='${actor.lastName}' />" minlength="1"
-										maxlength="45" required>
-								</div>
-								<button disabled type="submit" class="btn btn-primary">Update</button>
-							</form>
-						</div>
-
-					</div>
-
-					<div class="col">
 						<div class="container mt-5">
 							<form
 								onsubmit="return window.confirm('Are you sure you want to delete this entity?');"
@@ -149,9 +119,66 @@
 									<input type="hidden" class="form-control" id="id" name="id"
 										value="<c:out value='${actor.id}' />" disabled>
 								</div>
-								<button type="submit" class="btn btn-danger">Delete this Actor</button>
+								<button type="submit" class="btn btn-danger">Delete
+									this Actor</button>
 							</form>
 						</div>
+					</div>
+
+					<div class="col">
+						<div class="container mt-5">
+							<h2>Update Actor</h2>
+							<form action="updateActor.do" method="POST">
+								<div class="form-group">
+									<label class="d-none" for="id">ID: <c:out
+											value='${actor.id}' /></label> <input type="hidden"
+										class="d-none form-control" id="id" name="id"
+										value="<c:out value='${actor.id}' />" disabled>
+								</div>
+
+
+								<div class="row">
+
+									<div class="col-3">
+										<label for="firstName">First Name:</label>
+
+									</div>
+
+									<div class="col">
+										<input type="text" class="form-control" id="firstName"
+											name="firstName" value="<c:out value='${actor.firstName}' />"
+											minlength="1" maxlength="45" required>
+
+									</div>
+
+								</div>
+
+								<div class="row">
+
+									<div class="col-3">
+
+										<label for="lastName">Last Name:</label>
+									</div>
+
+									<div class="col">
+										<input type="text" class="form-control" id="lastName"
+											name="lastName" value="<c:out value='${actor.lastName}' />"
+											minlength="1" maxlength="45" required>
+
+									</div>
+
+								</div>
+
+								<br>
+
+								<button type="button"
+									onclick="alert('Update Not Completed! Too much work already!');"
+									class="btn btn-primary">Update</button>
+
+							</form>
+
+						</div>
+
 					</div>
 
 				</div>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -46,9 +47,10 @@ public class FilmController { // Bryan
 		return "film";
 	}
 
-	@PostMapping(path = { "findFilms.do" })
+	@RequestMapping(path = { "findFilms.do" })
 	public String findFilmByName(@RequestParam(name = "name", required = true, defaultValue = "") String name,
-			Model model, RedirectAttributes redirectAttributes) {
+			@RequestParam(name = "rating", required = false, defaultValue = "") String rating, Model model,
+			RedirectAttributes redirectAttributes) {
 
 		List<Film> films = new ArrayList<>();
 
@@ -63,7 +65,9 @@ public class FilmController { // Bryan
 		}
 
 		model.addAttribute("films", films);
-		return "films";
+		model.addAttribute("keyword", name);
+		model.addAttribute("rating", rating);
+		return "filmstable";
 	}
 
 	@GetMapping(path = { "addFilm.do" })

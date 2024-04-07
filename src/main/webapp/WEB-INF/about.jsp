@@ -49,7 +49,10 @@
 
 		<div class="container mt-5">
 
-			<h1>ABOUT</h1>
+			<div class="alert alert-success" role="alert">
+				<h1>ABOUT</h1>
+				<p>Additional comments from the developers.</p>
+			</div>
 
 			<hr>
 
@@ -57,23 +60,27 @@
 				<div class="col">
 					<h1>Sheldon's Comments</h1>
 					<ul>
-						<li>Error catching both SQL and Exceptions is important for echoing appropriate errors to the client.</li>
-						<li>Nulls for YEAR(4) as well as other fields require extra attention.</li>
-						<li>Forms should utilize pattern matching, defaults, and ranges to help enforce good input.</li>
+						<li>Error catching both SQL and Exceptions is important for
+							echoing appropriate errors to the client.</li>
+						<li>Nulls for YEAR(4) as well as other fields require extra
+							attention.</li>
+						<li>Forms should utilize pattern matching, defaults, and
+							ranges to help enforce good input.</li>
 					</ul>
 				</div>
 				<div class="col">
 					<h1>Bryan's Comments</h1>
 					<ul>
-						<li> Added Delete/Edit buttons to all film views. </li>
-						<li> Extensive testing on user interfaces and error catch</li>
-						<li> Maintained deletion protection of pre-set database values.</li>
+						<li>Added Delete/Edit buttons to all film views.</li>
+						<li>Extensive testing on user interfaces and error catch</li>
+						<li>Maintained deletion protection of pre-set database
+							values.</li>
 					</ul>
 				</div>
 			</div>
-			
+
 		</div>
-		
+
 	</main>
 
 	<script
@@ -83,6 +90,60 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+
+	<hr>
 
 </body>
 

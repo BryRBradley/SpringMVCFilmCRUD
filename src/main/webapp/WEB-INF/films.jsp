@@ -51,7 +51,11 @@
 
 		<div class="container mt-5">
 
-			<h1>FILMS</h1>
+			<div class="alert alert-success" role="alert">
+				<h1>FILMS</h1>
+			</div>
+
+			<hr>
 
 			<c:if test="${! empty films}">
 				<p>
@@ -77,12 +81,12 @@
 											${film.title} </a>
 									</h5>
 										<h5 class="card-text">${film.description}</h5>
-									<form action="deleteFilm.do" method="POST">
+									<form action="deleteFilm.do" onsubmit="return window.confirm('Are you sure you want to delete this entity?');" method="POST">
 										<div class="form-group">
 											<input type="hidden" class="form-control" id="id" name="id"
 												value="<c:out value='${film.id}' />">
 										</div>
-										<button type="submit" class="btn btn-danger">Delete
+										<button type="submit"  class="btn btn-danger">Delete
 											this Film</button>
 									</form>
 									<form action="updateFilm.do" method="GET">

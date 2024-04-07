@@ -47,28 +47,44 @@
 
 	<main>
 
-		<h1>ACTORS</h1>
-
 		<div class="container mt-5">
-			<div class="row">
 
-				<c:forEach var="actor" items="${actors}">
-					<!-- Card -->
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="card-title">
-									<a
-										href="<c:url value='findActor.do'><c:param name='id' value='${actor.id}'/></c:url>">${actor.id}:
-										${actor.firstName} ${actor.lastName} </a>
-								</h5>
+			<div class="alert alert-success" role="alert">
+				<h1>ACTORS</h1>
+			</div>
+
+			<hr>
+
+			<c:if test="${! empty actors}">
+				<p>
+					<span>${actors.size()}</span> : Actors(s) Found
+				</p>
+			</c:if>
+
+			<div class="container mt-5">
+
+				<div class="row">
+
+					<c:forEach var="actor" items="${actors}">
+						<!-- Card -->
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">
+										<a
+											href="<c:url value='findActor.do'><c:param name='id' value='${actor.id}'/></c:url>">${actor.id}:
+											${actor.firstName} ${actor.lastName} </a>
+									</h5>
+								</div>
 							</div>
 						</div>
-					</div>
-					<!-- End Card -->
-				</c:forEach>
+						<!-- End Card -->
+					</c:forEach>
+
+				</div>
 
 			</div>
+
 		</div>
 
 	</main>

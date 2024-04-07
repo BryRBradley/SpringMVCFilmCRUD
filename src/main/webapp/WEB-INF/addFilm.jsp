@@ -140,7 +140,7 @@
 							<label for="length">Length:</label>
 						</div>
 						<div class="col">
-							<input type="number" class="form-control" id="length"
+							<input type="text" class="form-control" id="length" pattern="[0-9]{5}"
 								name="length" value="<c:out value='' />" minlength="0"
 								maxlength="5">
 						</div>

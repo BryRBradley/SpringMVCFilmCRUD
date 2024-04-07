@@ -28,12 +28,30 @@ public class SiteController { // Sheldon
 	}
 
 	@GetMapping(path = { "error", "error.do" })
-	public String error() {
+	public String error(Model model, RedirectAttributes redirectAttributes) {
+		// Using reflection to get flash attributes from the model
+		String message = (String) model.asMap().get("message");
+		if (message != null) {
+			System.out.println("message: " + message);
+		}
+		String error = (String) model.asMap().get("error");
+		if (error != null) {
+			System.out.println("error: " + error);
+		}
 		return "error";
 	}
 
 	@GetMapping(path = { "success", "success.do" })
-	public String success() {
+	public String success(Model model, RedirectAttributes redirectAttributes) {
+		// Using reflection to get flash attributes from the model
+		String message = (String) model.asMap().get("message");
+		if (message != null) {
+			System.out.println("message: " + message);
+		}
+		String error = (String) model.asMap().get("error");
+		if (error != null) {
+			System.out.println("error: " + error);
+		}
 		return "success";
 	}
 

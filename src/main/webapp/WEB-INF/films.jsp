@@ -14,6 +14,8 @@
 	rel="stylesheet"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous">
+	<script>
+	</script>
 </head>
 
 <body class="mb-7">
@@ -52,7 +54,9 @@
 			<h1>FILMS</h1>
 
 			<c:if test="${! empty films}">
-				<p><span>${films.size()}</span> : Film(s) Found</p>
+				<p>
+					<span>${films.size()}</span> : Film(s) Found
+				</p>
 			</c:if>
 
 			<c:if test="${empty films}">
@@ -72,6 +76,15 @@
 											href="<c:url value='findFilm.do'><c:param name='id' value='${film.id}'/></c:url>">${film.id}:
 											${film.title} </a>
 									</h5>
+										<h5 class="card-text">${film.description}</h5>
+									<form action="deleteFilm.do" method="POST">
+										<div class="form-group">
+											<input type="hidden" class="form-control" id="id" name="id"
+												value="<c:out value='${film.id}' />">
+										</div>
+										<button type="submit" class="btn btn-danger">Delete
+											this Film</button>
+									</form>
 								</div>
 							</div>
 						</div>

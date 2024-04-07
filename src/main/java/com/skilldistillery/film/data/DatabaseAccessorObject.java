@@ -402,9 +402,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			throw new RuntimeException("Error inserting film: " + sqle.getMessage());
 
 		} catch (Exception e) {
+
 			System.out.println("-----------------------------------");
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+
 			throw new RuntimeException(e.getMessage());
 
 		}

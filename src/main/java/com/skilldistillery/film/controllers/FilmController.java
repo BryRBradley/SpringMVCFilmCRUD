@@ -86,6 +86,12 @@ public class FilmController { // Bryan
 			return "redirect:error.do";
 		}
 
+		if (film == null) {
+			redirectAttributes.addFlashAttribute("message", "Error adding film.");
+			redirectAttributes.addFlashAttribute("error", "Error adding film.");
+			return "redirect:error.do";
+		}
+
 		redirectAttributes.addFlashAttribute("film", film);
 		return "redirect:findFilm.do?id=" + film.getId();
 	}

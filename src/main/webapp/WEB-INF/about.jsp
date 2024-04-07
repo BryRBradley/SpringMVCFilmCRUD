@@ -57,9 +57,9 @@
 				<div class="col">
 					<h1>Sheldon's Comments</h1>
 					<ul>
-						<li>---</li>
-						<li>---</li>
-						<li>---</li>
+						<li>Error catching both SQL and Exceptions is important for echoing appropriate errors to the client.</li>
+						<li>Nulls for YEAR(4) as well as other fields require extra attention.</li>
+						<li>Forms should utilize pattern matching, defaults, and ranges to help enforce good input.</li>
 					</ul>
 				</div>
 				<div class="col">

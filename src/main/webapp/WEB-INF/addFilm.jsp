@@ -47,95 +47,150 @@
 
 	<main>
 
-		<h1>Film</h1>
+		<h1>Add Film</h1>
 
 		<c:if test="${empty film}">
 
 			<div class="container mt-5">
-				<h2>Film Add Form</h2>
-				<form action="addFilm.do" method="">
-					<div class="form-group">
-						<label for="title">Title:</label> <input type="text"
-							class="form-control" id="title" name="title"
-							value="<c:out value='' />" minlength="1" maxlength="255" required>
-					</div>
-					<div class="form-group">
-						<label for="description">Description:</label> <input type="text"
-							class="form-control" id="description" name="description"
-							value="<c:out value='' />" minlength="1" maxlength="65535">
-					</div>
+
+				<form action="addFilm.do" method="POST">
 
 					<div class="form-group">
-						<label for="releaseYear">Release year:</label> <input
-							type="number" class="form-control" id="releaseYear"
-							name="releaseYear" value="<c:out value='' />" minlength="0"
-							maxlength="4" min="1901" max="2155">
+						<div class="row">
+							<div class="col-3 text-right">
+								<label for="title">Title:</label>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control" id="title" name="title"
+									value="<c:out value='' />" minlength="1" maxlength="255"
+									required>
+							</div>
+						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="languageId">Language:</label> <select
-							class="form-control" id="languageId" name="languageId" required>
-							<option selected value="">Select an option</option>
-							<option value="1">English</option>
-							<option value="2">Italian</option>
-							<option value="3">Japanese</option>
-							<option value="4">Mandarin</option>
-							<option value="5">French</option>
-							<option value="6">German</option>
-						</select>
+					<div class="row">
+						<div class="col-3">
+							<label for="description">Description:</label>
+
+						</div>
+						<div class="col">
+							<input type="text" class="form-control" id="description"
+								name="description" value="<c:out value='' />" minlength="1"
+								maxlength="65535">
+
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3">
+							<label for="releaseYear">Release year:</label>
+						</div>
+						<div class="col">
+							<input type="text" class="form-control" id="releaseYear" pattern="[0-9]{4}"
+								name="releaseYear" value="<c:out value='' />" minlength="0"
+								maxlength="4">
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3">
+							<label for="languageId">Language:</label>
+						</div>
+						<div class="col">
+							<select class="form-control" id="languageId" name="languageId"
+								required>
+								<option selected value="">Select an option</option>
+								<option value="1">English</option>
+								<option value="2">Italian</option>
+								<option value="3">Japanese</option>
+								<option value="4">Mandarin</option>
+								<option value="5">French</option>
+								<option value="6">German</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3">
+							<label for="title">Rental duration:</label>
+						</div>
+						<div class="col">
+							<input type="number" class="form-control" id="rentalDuration"
+								name="rentalDuration" value="<c:out value='0' />" minlength="1"
+								maxlength="3" min="0" max="255" required>
+						</div>
 					</div>
 
 
-					<div class="form-group">
-						<label for="title">Rental duration:</label> <input type="number"
-							class="form-control" id="rentalDuration" name="rentalDuration"
-							value="<c:out value='0' />" minlength="1" maxlength="3" min="0"
-							max="255" required>
-					</div>
-					<div class="form-group">
-						<label for="rentalRate">Rental rate:</label> <input type="text"
-							class="form-control" id="rentalRate" name="rentalRate"
-							placeholder=“##.##” value="<c:out value='0.00' />" minlength="1"
-							maxlength="5" required>
+					<div class="row">
+						<div class="col-3">
+							<label for="rentalRate">Rental rate:</label>
+						</div>
+						<div class="col">
+
+							<input type="text" class="form-control" id="rentalRate"
+								name="rentalRate" placeholder=“##.##”
+								value="<c:out value='0.00' />" minlength="1" maxlength="5"
+								required>
+						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="length">Length:</label> <input type="number"
-							class="form-control" id="length" name="length"
-							value="<c:out value='' />" minlength="0" maxlength="5">
+					<div class="row">
+						<div class="col-3">
+							<label for="length">Length:</label>
+						</div>
+						<div class="col">
+							<input type="number" class="form-control" id="length"
+								name="length" value="<c:out value='' />" minlength="0"
+								maxlength="5">
+						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="replacementCost">Replacement cost:</label> <input
-							type="text" class="form-control" id="replacementCost"
-							name="replacementCost" value="<c:out value='0.00' />"
-							minlength="1" maxlength="5" required>
+					<div class="row">
+						<div class="col-3">
+							<label for="replacementCost">Replacement cost:</label>
+						</div>
+						<div class="col">
+							<input type="text" class="form-control" id="replacementCost"
+								name="replacementCost" value="<c:out value='0.00' />"
+								minlength="1" maxlength="5" required>
+						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="rating">Rating:</label> <select class="form-control"
-							id="rating" name="rating">
-							<option value="">Select an option</option>
-							<option value="G">G</option>
-							<option value="PG">PG</option>
-							<option value="PG13">PG13</option>
-							<option value="R">R</option>
-							<option value="NC17">NC17</option>
-						</select>
+
+					<div class="row">
+						<div class="col-3">
+							<label for="rating">Rating:</label>
+						</div>
+						<div class="col">
+							<select class="form-control" id="rating" name="rating">
+								<option value="">Select an option</option>
+								<option value="G">G</option>
+								<option value="PG">PG</option>
+								<option value="PG13">PG13</option>
+								<option value="R">R</option>
+								<option value="NC17">NC17</option>
+							</select>
+						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="">Special features:</label> <input type="text"
-							class="form-control" id="specialFeatures" name="specialFeatures"
-							value="<c:out value='' />" minlength="0" maxlength="45">
+					<div class="row">
+						<div class="col-3">
+							<label for="">Special features:</label>
+						</div>
+						<div class="col">
+							<input type="text" class="form-control" id="specialFeatures"
+								name="specialFeatures" value="<c:out value='' />" minlength="0"
+								maxlength="45">
+						</div>
 					</div>
-
 
 					<button type="submit" class="btn btn-primary">Add</button>
+
 				</form>
 			</div>
 
-			<!-- Code to execute if variable is null or empty -->
+
 		</c:if>
 
 	</main>

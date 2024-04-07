@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.film.data.DatabaseAccessor;
 import com.skilldistillery.film.entities.Actor;
@@ -26,15 +27,33 @@ public class SiteController { // Sheldon
 		return mv;
 	}
 
+	@GetMapping(path = { "error", "error.do" })
+	public String error() {
+		return "error";
+	}
+
+	@GetMapping(path = { "success", "success.do" })
+	public String success() {
+		return "success";
+	}
+
 	@GetMapping(path = { "about", "about.do" })
 	public String about() {
 		return "about";
 	}
 
 	@GetMapping(path = { "actors", "actors.do" })
-	public String actors(Model model) {
+	public String actors(Model model, RedirectAttributes redirectAttributes) {
 		List<Actor> actors = new ArrayList<>();
-		actors = dao.findAllActors();
+
+		try {
+			actors = dao.findAllActors();
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("message", "Error finding actor(s).");
+			redirectAttributes.addFlashAttribute("error", e.getMessage());
+			return "redirect:error.do";
+		}
+
 		model.addAttribute("actors", actors);
 		return "actors";
 	}
@@ -42,7 +61,15 @@ public class SiteController { // Sheldon
 	@GetMapping(path = { "films", "films.do" })
 	public String films(Model model) {
 		List<Film> films = new ArrayList<>();
-		films = dao.findAllFilms();
+
+		try {
+			films = dao.findAllFilms();
+		} catch (Exception e) {
+			model.addAttribute("message", "Error finding film(s).");
+			model.addAttribute("error", e.getMessage());
+			return "redirect:error.do";
+		}
+
 		model.addAttribute("films", films);
 		return "films";
 	}

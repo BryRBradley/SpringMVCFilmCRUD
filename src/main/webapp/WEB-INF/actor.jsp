@@ -47,85 +47,114 @@
 
 	<main>
 
-		<h1>Actor</h1>
+		<div class="container mt-5">
+			<h1>Actor</h1>
 
-		${message}
+			<c:if test="${! empty message}">
+				<p>${message}</p>
+			</c:if>
+
+			<c:if test="${! empty error}">
+				<p>${error}</p>
+			</c:if>
+
+		</div>
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col"></div>
+			</div>
+		</div>
 
 		<c:if test="${empty actor}">
-			<!-- 'actor' object is null or empty -->
-			<!-- Your code here -->
-
 			<c:choose>
 				<c:when test="${add}">
-					<!-- Code to execute if yourVariable is true -->
+					<div class="container mt-5">
+						<h2>Actor Add Form - Partially Implemented Stretch Goal</h2>
+						<form action="addActor.do" method="POST">
+							<div class="form-group">
+								<label for="firstName">First Name:</label> <input type="text"
+									class="form-control" id="firstName" name="firstName"
+									value="<c:out value='${actor.firstName}' />" minlength="1"
+									maxlength="45" required>
+							</div>
+							<div class="form-group">
+								<label for="lastName">Last Name:</label> <input type="text"
+									class="form-control" id="lastName" name="lastName"
+									value="<c:out value='${actor.lastName}' />" minlength="1"
+									maxlength="45" required>
+							</div>
+							<button type="submit" class="btn btn-primary">Add</button>
+						</form>
+					</div>
 				</c:when>
 				<c:otherwise>
-					<!-- Code to execute if yourVariable is false -->
-					<p>Actor not found</p>
+					<div class="container">
+						<div class="row">
+							<div class="col">
+								<p>No actor found, please go home to add or search for one.</p>
+							</div>
+						</div>
+					</div>
 				</c:otherwise>
 			</c:choose>
-
-			<div class="container mt-5">
-				<h2>Actor Add Form</h2>
-				<form action="addActor.do" method="POST">
-					<div class="form-group">
-						<label for="firstName">First Name:</label> <input type="text"
-							class="form-control" id="firstName" name="firstName"
-							value="<c:out value='${actor.firstName}' />" minlength="1"
-							maxlength="45" required>
-					</div>
-					<div class="form-group">
-						<label for="lastName">Last Name:</label> <input type="text"
-							class="form-control" id="lastName" name="lastName"
-							value="<c:out value='${actor.lastName}' />" minlength="1"
-							maxlength="45" required>
-					</div>
-					<button type="submit" class="btn btn-primary">Add</button>
-				</form>
-			</div>
-
 		</c:if>
 
 		<c:if test="${not empty actor}">
-			<!-- 'actor' object is not null or empty -->
-			<!-- Your code here -->
-			<p>ID: ${actor.id} ${actor.firstName} ${actor.lastName}</p>
 
-			<div class="container mt-5">
-				<h2>Actor Update Form</h2>
-				<form action="updateActor.do" method="POST">
-					<div class="form-group">
-						<label for="id">ID: <c:out value='${actor.id}' /></label> <input
-							type="hidden" class="form-control" id="id" name="id"
-							value="<c:out value='${actor.id}' />" disabled>
-					</div>
-					<div class="form-group">
-						<label for="firstName">First Name:</label> <input type="text"
-							class="form-control" id="firstName" name="firstName"
-							value="<c:out value='${actor.firstName}' />" minlength="1"
-							maxlength="45" required>
-					</div>
-					<div class="form-group">
-						<label for="lastName">Last Name:</label> <input type="text"
-							class="form-control" id="lastName" name="lastName"
-							value="<c:out value='${actor.lastName}' />" minlength="1"
-							maxlength="45" required>
-					</div>
-					<button type="submit" class="btn btn-primary">Update</button>
-				</form>
-			</div>
+			<div class="container">
+				<div class="row">
 
-			<div class="container mt-5">
-				<h2>Actor Delete Form ${actor.id}</h2>
-				<form action="deleteActor.do?id=<c:out value='${actor.id}' />"
-					method="POST">
-					<div class="form-group">
-						<label for="id">ID: <c:out value='${actor.id}' /></label> <input
-							type="hidden" class="form-control" id="id" name="id"
-							value="<c:out value='${actor.id}' />" disabled>
+					<div class="col">
+						<p>Actor ID: ${actor.id}</p>
+						<p>First Name: ${actor.firstName}</p>
+						<p>Last Name: ${actor.lastName}</p>
 					</div>
-					<button type="submit" class="btn btn-danger">Delete</button>
-				</form>
+
+					<div class="col">
+						<div class="container mt-5">
+							<h2>Actor Update Form - Partially Implemented Stretch Goal</h2>
+							<form action="updateActor.do" method="POST">
+								<div class="form-group">
+									<label for="id">ID: <c:out value='${actor.id}' /></label> <input
+										type="hidden" class="form-control" id="id" name="id"
+										value="<c:out value='${actor.id}' />" disabled>
+								</div>
+								<div class="form-group">
+									<label for="firstName">First Name:</label> <input type="text"
+										class="form-control" id="firstName" name="firstName"
+										value="<c:out value='${actor.firstName}' />" minlength="1"
+										maxlength="45" required>
+								</div>
+								<div class="form-group">
+									<label for="lastName">Last Name:</label> <input type="text"
+										class="form-control" id="lastName" name="lastName"
+										value="<c:out value='${actor.lastName}' />" minlength="1"
+										maxlength="45" required>
+								</div>
+								<button disabled type="submit" class="btn btn-primary">Update</button>
+							</form>
+						</div>
+
+					</div>
+
+					<div class="col">
+						<div class="container mt-5">
+							<form
+								onsubmit="return window.confirm('Are you sure you want to delete this entity?');"
+								action="deleteActor.do?id=<c:out value='${actor.id}' />"
+								method="POST">
+								<div class="form-group">
+									<input type="hidden" class="form-control" id="id" name="id"
+										value="<c:out value='${actor.id}' />" disabled>
+								</div>
+								<button type="submit" class="btn btn-danger">Delete this Actor</button>
+							</form>
+						</div>
+					</div>
+
+				</div>
 			</div>
 
 		</c:if>

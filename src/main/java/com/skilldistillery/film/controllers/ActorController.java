@@ -18,22 +18,30 @@ public class ActorController { // Sheldon
 	private DatabaseAccessor dao;
 
 	@GetMapping(path = { "findActor.do" })
-	public String findActorById(@RequestParam(name = "id", required = false, defaultValue = "0") int id, Model model) {
+	public String findActorById(@RequestParam(name = "id", required = false, defaultValue = "0") int id, Model model,
+			RedirectAttributes redirectAttributes) {
 
 		if (id < 1) {
-			return "actor"; // possible film not found page
+			redirectAttributes.addFlashAttribute("message", "Id must be valid.");
+			redirectAttributes.addFlashAttribute("error", "Id must be valid.");
+			return "redirect:error.do";
 		}
 
 		Actor actor = null;
-		actor = dao.findActorById(id);
-		model.addAttribute("actor", actor);
 
-		if (actor == null) {
-			return "actor"; // possible actor not found page
-		} else {
-			return "actor"; // show the actor details page
+		try {
+			actor = dao.findActorById(id);
+		} catch (Exception e) {
+			actor = null;
+			System.out.println("Exception: " + e.getMessage());
+			redirectAttributes.addFlashAttribute("message", "Could not find actor.");
+			redirectAttributes.addFlashAttribute("error", e.getMessage());
+			return "redirect:error.do";
 		}
 
+		model.addAttribute("add", false);
+		model.addAttribute("actor", actor);
+		return "actor";
 	}
 
 	@GetMapping(path = { "addActor.do" })
@@ -41,37 +49,65 @@ public class ActorController { // Sheldon
 		Actor actor = null;
 		model.addAttribute("add", true);
 		model.addAttribute("actor", actor);
-		return "actor"; // show the actor details page
+		return "actor";
 	}
 
 	@PostMapping(path = { "addActor.do" })
 	public String addActorPost(@RequestParam(name = "firstName", required = true) String firstName,
-			@RequestParam(name = "lastName", required = true) String lastName, Model model) {
+			@RequestParam(name = "lastName", required = true) String lastName, Model model,
+			RedirectAttributes redirectAttributes) {
+
 		Actor actor = new Actor(firstName, lastName);
-		actor = dao.createActor(actor);
-		model.addAttribute("actor", actor);
-		return "actor"; // show the actor details page
+
+		try {
+			actor = dao.createActor(actor);
+		} catch (Exception e) {
+			System.out.println("Exception: " + e.getMessage());
+			actor = null;
+			redirectAttributes.addFlashAttribute("message", "Error adding actor.");
+			redirectAttributes.addFlashAttribute("error", e.getMessage());
+			return "redirect:error.do";
+		}
+
+		redirectAttributes.addFlashAttribute("actor", actor);
+		return "redirect:findActor.do?id=" + actor.getId();
 	}
 
 	@PostMapping(path = { "deleteActor.do" })
 	public String deleteActor(@RequestParam(name = "id", required = true, defaultValue = "0") int id, Model model,
 			RedirectAttributes redirectAttributes) {
 
-		System.out.println("id: " + id);
-
 		if (id < 1) {
-			return "actor"; // possible actor not found page
+			redirectAttributes.addFlashAttribute("message", "Actor not deleted. Id must be valid.");
+			redirectAttributes.addFlashAttribute("error", "Actor not deleted. Id must be valid.");
+			return "redirect:error.do";
 		}
 
-		boolean wasDeleted = dao.deleteActor(id);
+		if (id >= 1 && id <= 200) {
+			redirectAttributes.addFlashAttribute("message", "Actor not deleted. This is an original actor.");
+			redirectAttributes.addFlashAttribute("error", "Actor not deleted. This is an original actor.");
+			return "redirect:error.do";
+		}
+
+		boolean wasDeleted = false;
+
+		try {
+			wasDeleted = dao.deleteActor(id);
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("message", "Error deleting actor.");
+			redirectAttributes.addFlashAttribute("error", e.getMessage());
+		}
 
 		if (wasDeleted) {
 			redirectAttributes.addFlashAttribute("message", "Actor deleted successfully.");
+			redirectAttributes.addFlashAttribute("error", "Actor deleted successfully.");
+			return "redirect:success.do";
 		} else {
-			redirectAttributes.addFlashAttribute("message", "Actor not deleted. ID: " + id + " not found.");
+			redirectAttributes.addFlashAttribute("message", "Actor not deleted.");
+			redirectAttributes.addFlashAttribute("error", "Actor not deleted.");
+			return "redirect:error.do";
 		}
 
-		return "redirect:findActor.do"; // show the actor details page";
 	}
 
 }

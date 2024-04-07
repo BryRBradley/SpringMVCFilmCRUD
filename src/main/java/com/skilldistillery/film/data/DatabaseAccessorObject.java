@@ -61,6 +61,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 		return films;
 	}
@@ -105,6 +108,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 		return films;
 	}
@@ -143,6 +149,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 		return (film);
 
@@ -153,73 +162,75 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		String USER = "student";
 		String PASS = "student";
 		Actor actor = null;
+
 		try {
+
 			Connection conn = DriverManager.getConnection(URL, USER, PASS);
 			actor = null;
-			// ...
+
 			String sql = "SELECT * FROM actor WHERE id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, actorId);
 			ResultSet actorResult = stmt.executeQuery();
 			while (actorResult.next()) {
-				actor = new Actor(); // Create the object
-				// Here is our mapping of query columns to our object fields:
+				actor = new Actor();
+
 				actor.setId(actorResult.getInt("id"));
 				actor.setFirstName(actorResult.getString("first_name"));
 				actor.setLastName(actorResult.getString("last_name"));
 
-				// if(actorResult.next){
-				// String firstName = actorResult.getString("first_name");
-				// String lastName = actorResult.getString("last_name");
-				// actor = new Actor(actorId, firstName, lastName);
-				// }
-
 			}
+
 			actorResult.close();
 			stmt.close();
 			conn.close();
 			return actor;
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
+
 		return actor;
 	}
 
 	@Override
 	public List<Actor> findActorsByFilmId(int filmId) {
+
 		String USER = "student";
 		String PASS = "student";
 		Actor actor = null;
+
 		List<Actor> actorsList = new ArrayList<>();
+
 		try {
+
 			Connection conn = DriverManager.getConnection(URL, USER, PASS);
 			String sql = "SELECT actor.* FROM actor Join film_actor on actor.id = film_actor.actor_id WHERE film_actor.film_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet actorResult = stmt.executeQuery();
 			while (actorResult.next()) {
-				actor = new Actor(); // Create the object
-				// Here is our mapping of query columns to our object fields:
+
+				actor = new Actor();
+
 				actor.setId(actorResult.getInt("id"));
 				actor.setFirstName(actorResult.getString("first_name"));
 				actor.setLastName(actorResult.getString("last_name"));
-				// System.out.println("**********" + actor);
-				actorsList.add(actor);
-				// if(actorResult.next){
-				// String firstName = actorResult.getString.("first_name");
-				// String lastName = actorResult.getString.("last_name");
-				// actor = new Actor(actorId, firstName, lastName);
-				// }
 
+				actorsList.add(actor);
 			}
 
 			actorResult.close();
 			stmt.close();
 			conn.close();
 		} catch (SQLException e) {
-
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 
 		return actorsList;
@@ -233,6 +244,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		Connection conn = null;
 
 		try {
+
 			conn = DriverManager.getConnection(URL, USER, PASS);
 
 			conn.setAutoCommit(false); // START TRANSACTION
@@ -268,7 +280,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			conn.commit(); // COMMIT TRANSACTION
 
 		} catch (SQLException sqle) {
+
 			sqle.printStackTrace();
+
 			if (conn != null) {
 				try {
 					conn.rollback();
@@ -276,13 +290,22 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					System.err.println("Error trying to rollback");
 				}
 			}
-			throw new RuntimeException("Error inserting actor " + actor);
+
+			throw new RuntimeException("Error inserting actor : " + sqle.getMessage());
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+
 		}
+
 		return actor;
 	}
 
 	@Override
 	public Film createFilm(Film film) {
+
 		String USER = "student";
 		String PASS = "student";
 
@@ -301,13 +324,43 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
-			stmt.setInt(3, film.getReleaseYear());
+
+			// stmt.setInt(3, film.getReleaseYear() != null ? film.getReleaseYear() : null);
+
+			if (film.getReleaseYear() != null) {
+				// If getReleaseYear is not null, set the integer value
+				stmt.setInt(3, film.getReleaseYear());
+			} else {
+				// If getReleaseYear is null, set it as NULL in the database
+				stmt.setNull(3, java.sql.Types.INTEGER);
+			}
+
 			stmt.setInt(4, film.getLanguageId());
 			stmt.setInt(5, film.getRentalDuration());
 			stmt.setDouble(6, film.getRentalRate());
-			stmt.setInt(7, film.getLength());
+
+			// stmt.setInt(7, film.getLength());
+
+			if (film.getLength() != null) {
+				// If getLength is not null, set the integer value
+				stmt.setInt(7, film.getLength());
+			} else {
+				// If getLength is null, set it as NULL in the database
+				stmt.setNull(7, java.sql.Types.INTEGER);
+			}
+
 			stmt.setDouble(8, film.getReplacementCost());
-			stmt.setString(9, film.getRating());
+
+			// stmt.setString(9, film.getRating());
+
+			if (film.getRating() != null && !film.getRating().equals("")) {
+				// If getRating is not null, set the string value
+				stmt.setString(9, film.getRating());
+			} else {
+				// If getRating is null, set it as NULL in the database
+				stmt.setNull(9, java.sql.Types.VARCHAR);
+			}
+
 			stmt.setString(10, film.getSpecialFeatures());
 
 			int updateCount = stmt.executeUpdate();
@@ -321,19 +374,20 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					film.setId(newFilmId);
 				}
 
+				conn.commit(); // COMMIT TRANSACTION
+
 			} else {
 
 				film = null;
 
 			}
 
-			conn.commit(); // COMMIT TRANSACTION
-
 		} catch (SQLException sqle) {
 
 			film = null;
 
 			sqle.printStackTrace();
+
 			if (conn != null) {
 				try {
 					conn.rollback();
@@ -341,60 +395,25 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					System.err.println("Error trying to rollback");
 				}
 			}
-			throw new RuntimeException("Error inserting film " + film);
+
+			System.out.println("-----------------------------------");
+			System.out.println(sqle.getMessage());
+
+			throw new RuntimeException("Error inserting film: " + sqle.getMessage());
+
+		} catch (Exception e) {
+			System.out.println("-----------------------------------");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+
 		}
+
+		System.out.println(film.getId());
+		System.out.println(film);
 
 		return film;
 	}
-
-//	public Film createFilm(String newFilmTitle) {
-//		String USER = "student";
-//		String PASS = "student";
-//		Film film = null;
-//		Connection conn = null;
-//		try {
-//			conn = DriverManager.getConnection(URL, USER, PASS);
-//			conn.setAutoCommit(false); // START TRANSACTION
-//			String sql = "INSERT INTO film (title, language_id) VALUES (?, ?)";
-//			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//			stmt.setString(1, film.getTitle());
-//			stmt.setInt(2, 1);
-//			int updateCount = stmt.executeUpdate();
-//			if (updateCount == 1) {
-//				ResultSet keys = stmt.getGeneratedKeys();
-//				if (keys.next()) {
-//					int newFilmId = keys.getInt(1);
-//					film.setId(newFilmId);
-//					if (film.getActors() != null && film.getActors().size() > 0) {
-//						sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
-//						stmt = conn.prepareStatement(sql);
-//						for (Actor actor : film.getActors()) {
-//							stmt.setInt(1, newFilmId);
-//							stmt.setInt(2, actor.getId());
-//							updateCount = stmt.executeUpdate();
-//						}
-//					}
-//
-//				}
-//
-//				conn.commit(); // COMMIT TRANSACTION
-//			} else {
-//				film = null;
-//			}
-//		} catch (SQLException sqle) {
-//			sqle.printStackTrace();
-//			if (conn != null) {
-//				try {
-//					conn.rollback();
-//				} catch (SQLException sqle2) {
-//					System.err.println("Error trying to rollback");
-//				}
-//			}
-//			throw new RuntimeException("Error inserting film " + film);
-//		}
-//		return film;
-//
-//	}
 
 	@Override
 	public List<Actor> findAllActors() {
@@ -434,6 +453,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+
 		}
 
 		return actors;
@@ -483,6 +508,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+
 		}
 
 		return films;
@@ -520,7 +551,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			conn.commit(); // COMMIT TRANSACTION
 
 		} catch (SQLException sqle) {
+
 			sqle.printStackTrace();
+
 			if (conn != null) {
 				try {
 					conn.rollback();
@@ -528,8 +561,16 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					System.err.println("Error trying to rollback");
 				}
 			}
-			throw new RuntimeException("Error deleting actor " + actorId);
+
+			throw new RuntimeException("Error deleting actor : " + sqle.getMessage());
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+
 		}
+
 		return wasDeleted;
 	}
 
@@ -565,6 +606,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			conn.commit(); // COMMIT TRANSACTION
 
 		} catch (SQLException sqle) {
+
 			sqle.printStackTrace();
 			if (conn != null) {
 				try {
@@ -573,16 +615,24 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					System.err.println("Error trying to rollback");
 				}
 			}
-			throw new RuntimeException("Error deleting film " + filmId);
+			throw new RuntimeException("Error deleting film : " + sqle.getMessage());
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+
 		}
+
 		return wasDeleted;
 	}
 
 	@Override
 	public Film updateFilmById(Film film) {
+
 		String USER = "student";
 		String PASS = "student";
-		boolean wasAdded = false;
+
 		Connection conn = null;
 
 		try {
@@ -590,7 +640,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			conn = DriverManager.getConnection(URL, USER, PASS);
 
 			conn.setAutoCommit(false); // START TRANSACTION
-			// Change SQL query to an update
+
 			String sql = "UPDATE film SET (title, description,release_year,language_id,rental_duration,rental_rate,length,replacement_cost,rating,special_features) "
 					+ " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
@@ -610,12 +660,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			int updateCount = stmt.executeUpdate();
 
 			if (updateCount == 1) {
-				wasAdded = true;
-			} else {
-				wasAdded = false;
+				conn.commit(); // COMMIT TRANSACTION
+				return film;
 			}
 
-			conn.commit(); // COMMIT TRANSACTION
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			if (conn != null) {
@@ -625,8 +673,13 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					System.err.println("Error trying to rollback");
 				}
 			}
-			throw new RuntimeException("Error in updating film ");
+			throw new RuntimeException("Error in updating film : " + sqle.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
+
 		return film;
+
 	}
 }

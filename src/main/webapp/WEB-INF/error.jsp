@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JSP</title>
+<title>Failure</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -47,28 +47,22 @@
 
 	<main>
 
-		<div class="container mt-5">
-
-			<h1>ABOUT</h1>
-
-			<hr>
+		<div class="container">
 
 			<div class="row">
 				<div class="col">
-					<h1>Sheldon's Comments</h1>
-					<ul>
-						<li>---</li>
-						<li>---</li>
-						<li>---</li>
-					</ul>
+					<h1 class="text-danger">Failure</h1>
 				</div>
+			</div>
+
+			<div class="row">
 				<div class="col">
-					<h1>Bryan's Comments</h1>
-					<ul>
-						<li>---</li>
-						<li>---</li>
-						<li>---</li>
-					</ul>
+					<c:if test="${! empty message}">
+						<p>${message}</p>
+					</c:if>
+					<c:if test="${! empty error}">
+						<p>${error}</p>
+					</c:if>
 				</div>
 			</div>
 			

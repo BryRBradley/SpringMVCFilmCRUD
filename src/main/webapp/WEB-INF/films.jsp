@@ -47,28 +47,40 @@
 
 	<main>
 
-		<h1>FILMS</h1>
-
 		<div class="container mt-5">
-			<div class="row">
 
-				<c:forEach var="film" items="${films}">
-					<!-- Card -->
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="card-title">
-									<a
-										href="<c:url value='findFilm.do'><c:param name='id' value='${film.id}'/></c:url>">${film.id}: ${film.title}
-									</a>
-								</h5>
+			<h1>FILMS</h1>
+
+			<c:if test="${! empty films}">
+				<p><span>${films.size()}</span> : Film(s) Found</p>
+			</c:if>
+
+			<c:if test="${empty films}">
+				<p>No Films Found</p>
+			</c:if>
+
+			<div class="container mt-5">
+				<div class="row">
+
+					<c:forEach var="film" items="${films}">
+						<!-- Card -->
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">
+										<a
+											href="<c:url value='findFilm.do'><c:param name='id' value='${film.id}'/></c:url>">${film.id}:
+											${film.title} </a>
+									</h5>
+								</div>
 							</div>
 						</div>
-					</div>
-					<!-- End Card -->
-				</c:forEach>
+						<!-- End Card -->
+					</c:forEach>
 
+				</div>
 			</div>
+
 		</div>
 
 	</main>

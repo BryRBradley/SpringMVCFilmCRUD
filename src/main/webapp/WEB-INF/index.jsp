@@ -53,32 +53,49 @@
 			<div class="row">
 				<div class="col">
 					<h1>Films</h1>
-					<form action="findFilm.do">
+
+					<form action="findFilm.do" method="GET">
 						<label for="id" class="form-label">Film by Id: </label> <input
-							type="number" name="id" min="1" step="1" pattern=""
-							placeholder="" /> <input type="submit" value="Search By Id" />
+							type="number" name="id" min="1" step="1" placeholder="" /> <input
+							class="btn btn-success" type="submit" value="Search By Id" />
 					</form>
-					
+
+					<hr>
+
+					<form action="findFilms.do" method="POST">
+						<label for="name" class="form-label">Film by Keyword: </label> <input
+							type="text" name="name" minlength="0" maxlength="255"
+							placeholder="" /> <input class="btn btn-success" type="submit"
+							value="Search By Keyword" />
+					</form>
+
+
+					<hr>
+
 					<form action="addFilm.do" method="GET">
-						<input type="submit" class="btn btn-success" value="Add Film" />
+						<input type="submit" class="btn btn-outline" value="+ Add Film"
+							title="Add Film" />
 					</form>
-					
+
 				</div>
 
 				<div class="col">
-				
+
 					<h1>Actors</h1>
-					
-					<form action="findActor.do">
+
+					<form action="findActor.do" method="GET">
 						<label for="id" class="form-label">Actor by Id: </label> <input
 							type="number" name="id" min="1" step="1" placeholder="" /> <input
-							type="submit" value="Search By Id" />
+							type="submit" class="btn btn-success" value="Search By Id" />
 					</form>
-					
-					<form action="addActor.do">
-						<input type="submit" class="btn btn-success" value="Add Actor" />
+
+					<hr>
+
+					<form action="addActor.do" method="GET">
+						<input type="submit" class="btn btn-outline" value="+ Add Actor"
+							title="Add Actor" />
 					</form>
-					
+
 				</div>
 			</div>
 		</div>

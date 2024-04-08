@@ -117,7 +117,7 @@
 								<input type="text" class="form-control" id="releaseYear"
 									name="releaseYear"
 									value="<c:out value='${film.releaseYear}' />" minlength="0"
-									maxlength="4" min="1901" max="2155">
+									maxlength="4" >
 							</div>
 
 						</div>
@@ -162,8 +162,8 @@
 							</div>
 
 							<div class="col">
-								<input type="text" class="form-control" id="rentalDuration"
-									name="rentalDuration"
+								<input type="number" class="form-control" id="rentalDuration"
+									name="rentalDuration" required
 									value="<c:out value='${film.rentalDuration}' />" minlength="1"
 									maxlength="3" min="0" max="255" >
 

@@ -44,6 +44,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				String title = rs.getString("title");
 				String description = rs.getString("description");
 				Integer releaseYear = rs.getInt("release_year");
+//				if (releaseYear == 0) {
+//					releaseYear = null;
+//				}
 				int languageId = rs.getInt("language_id");
 				int rentalDuration = rs.getInt("rental_duration");
 				double rate = rs.getDouble("rental_rate");
@@ -91,10 +94,16 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				String title = rs.getString("title");
 				String description = rs.getString("description");
 				Integer releaseYear = rs.getInt("release_year");
+				if (releaseYear == 0) {
+					releaseYear = null;
+				}
 				int languageId = rs.getInt("language_id");
 				int rentalDuration = rs.getInt("rental_duration");
 				double rate = rs.getDouble("rental_rate");
 				Integer length = rs.getInt("length");
+				if (length == 0) {
+					length = null;
+				}
 				double replacementCost = rs.getDouble("replacement_cost");
 				String rating = rs.getString("rating");
 				String specialFeatures = rs.getString("special_features");
@@ -136,10 +145,16 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setTitle(filmResult.getString("title"));
 				film.setDescription(filmResult.getString("description"));
 				film.setReleaseYear(filmResult.getInt("release_year"));
+				if (film.getReleaseYear() == 0) {
+					film.setReleaseYear(null);
+				}
 				film.setLanguageId(filmResult.getInt("language_id"));
 				film.setRentalDuration(filmResult.getInt("rental_duration"));
 				film.setRentalRate(filmResult.getDouble("rental_rate"));
 				film.setLength(filmResult.getInt("length"));
+				if (film.getLength() == 0) {
+					film.setLength(null);
+				}
 				film.setReplacementCost(filmResult.getDouble("replacement_cost"));
 				film.setRating(filmResult.getString("rating"));
 				film.setSpecialFeatures(filmResult.getString("special_features"));

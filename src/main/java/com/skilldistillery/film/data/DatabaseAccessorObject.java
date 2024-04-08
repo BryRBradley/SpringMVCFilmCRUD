@@ -54,6 +54,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				String language = rs.getString("language");
 				Film film = new Film(filmId, title, description, releaseYear, languageId, rentalDuration, rate, length,
 						replacementCost, rating, specialFeatures, language);
+				film.setActors(findActorsByFilmId(filmId));
 				films.add(film);
 			}
 			rs.close();
@@ -100,6 +101,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				String language = rs.getString("name");
 				film = new Film(filmId, title, description, releaseYear, languageId, rentalDuration, rate, length,
 						replacementCost, rating, specialFeatures, language);
+
+				film.setActors(findActorsByFilmId(filmId));
 				films.add(film);
 			}
 

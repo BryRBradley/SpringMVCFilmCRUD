@@ -68,7 +68,9 @@ td, th {
 
 			<div class="alert alert-success" role="alert">
 				<h1>FILMS</h1>
-				<p>Search results using the keyword: <strong>'${keyword}'</strong></p>
+				<p>
+					Search results using the keyword: <strong>'${keyword}'</strong>
+				</p>
 
 				<form action="findFilms.do" method="GET">
 
@@ -139,6 +141,8 @@ td, th {
 
 								<th>Delete</th>
 
+								<th>Actors</th>
+
 							</tr>
 
 						</thead>
@@ -204,6 +208,34 @@ td, th {
 											this Film</button>
 									</form>
 								</td>
+
+								<td>
+								
+								
+								
+								<c:if test="${empty film.actors}">
+										<p>No data for Actors in film</p>
+
+									</c:if> 
+									
+									
+									
+									<c:if test="${not empty film.actors}">
+										<p>Cast of Actors</p>
+										<c:forEach var="actor" items="${film.actors}">
+											<h5 class="card-title">
+												<a style="font-size: .8em;"
+													href="<c:url value='findActor.do'><c:param name='id' value='${actor.id}'/></c:url>">${actor.id}:
+													${actor.firstName} ${actor.lastName} </a><br>
+											</h5>
+										</c:forEach>
+									</c:if>
+									
+									
+									
+									</td>
+									
+									
 
 								</tr>
 
